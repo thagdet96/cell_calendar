@@ -11,7 +11,7 @@ class CalendarEvent {
     this.eventID,
   });
 
-  final Text eventName;
+  final Widget eventName;
   final DateTime eventDate;
   final String? eventID;
   final Color eventBackgroundColor;
