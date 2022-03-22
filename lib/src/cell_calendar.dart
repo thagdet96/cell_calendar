@@ -51,7 +51,7 @@ class CellCalendar extends StatelessWidget {
   final TextStyle? dateTextStyle;
 
   final List<CalendarEvent> events;
-  final void Function(DateTime firstDate, DateTime lastDate)? onPageChanged;
+  final List<CalendarEvent> Function(DateTime firstDate, DateTime lastDate)? onPageChanged;
   final void Function(DateTime)? onCellTapped;
   final Color todayMarkColor;
   final Color todayTextColor;
@@ -104,8 +104,7 @@ class _CalendarPageView extends StatelessWidget {
         MonthYearLabel(monthYearLabelBuilder),
         Expanded(
           child: PageView.builder(
-            controller:
-                cellCalendarPageController ?? CellCalendarPageController(),
+            controller: cellCalendarPageController ?? CellCalendarPageController(),
             itemBuilder: (context, index) {
               return _CalendarPage(
                 index.visibleDateTime,
@@ -114,8 +113,7 @@ class _CalendarPageView extends StatelessWidget {
               );
             },
             onPageChanged: (index) {
-              Provider.of<CalendarStateController>(context, listen: false)
-                  .onPageChanged(index);
+              Provider.of<CalendarStateController>(context, listen: false).onPageChanged(index);
             },
           ),
         ),
