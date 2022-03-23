@@ -36,6 +36,7 @@ class CellCalendar extends StatelessWidget {
     this.daysOfTheWeekBuilder,
     this.monthYearLabelBuilder,
     this.dateTextStyle,
+    this.initDate,
   });
 
   final CellCalendarPageController? cellCalendarPageController;
@@ -51,10 +52,11 @@ class CellCalendar extends StatelessWidget {
   final TextStyle? dateTextStyle;
 
   final List<CalendarEvent> events;
-  final List<CalendarEvent> Function(DateTime firstDate, DateTime lastDate)? onPageChanged;
+  final void Function(DateTime firstDate, DateTime lastDate)? onPageChanged;
   final void Function(DateTime)? onCellTapped;
   final Color todayMarkColor;
   final Color todayTextColor;
+  final DateTime? initDate;
 
   @override
   Widget build(BuildContext context) {
@@ -73,6 +75,7 @@ class CellCalendar extends StatelessWidget {
         Provider.value(value: TodayUIConfig(todayTextColor, todayMarkColor)),
       ],
       child: _CalendarPageView(
+        initDate,
         daysOfTheWeekBuilder,
         monthYearLabelBuilder,
         dateTextStyle,
@@ -85,12 +88,14 @@ class CellCalendar extends StatelessWidget {
 /// Shows [MonthYearLabel] and PageView of [_CalendarPage]
 class _CalendarPageView extends StatelessWidget {
   _CalendarPageView(
+    this.initDate,
     this.daysOfTheWeekBuilder,
     this.monthYearLabelBuilder,
     this.dateTextStyle,
     this.cellCalendarPageController,
   );
 
+  final DateTime? initDate;
   final daysBuilder? daysOfTheWeekBuilder;
   final monthYearBuilder? monthYearLabelBuilder;
   final TextStyle? dateTextStyle;
@@ -107,7 +112,7 @@ class _CalendarPageView extends StatelessWidget {
             controller: cellCalendarPageController ?? CellCalendarPageController(),
             itemBuilder: (context, index) {
               return _CalendarPage(
-                index.visibleDateTime,
+                initDate ?? index.visibleDateTime,
                 daysOfTheWeekBuilder,
                 dateTextStyle,
               );

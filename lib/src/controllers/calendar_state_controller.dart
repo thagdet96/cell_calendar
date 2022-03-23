@@ -14,7 +14,7 @@ class CalendarStateController extends ChangeNotifier {
     this._initialize();
   }
 
-  List<CalendarEvent> events;
+  final List<CalendarEvent> events;
 
   final Function(DateTime firstDate, DateTime lastDate)? onPageChangedFromUserArgument;
 
@@ -31,10 +31,7 @@ class CalendarStateController extends ChangeNotifier {
     currentDateTime = index.visibleDateTime;
     if (onPageChangedFromUserArgument != null) {
       final currentFirstDate = _getFirstDay(currentDateTime!);
-      dynamic newEvents = onPageChangedFromUserArgument!(currentFirstDate, currentFirstDate.add(Duration(days: 41)));
-      if (newEvents != null) {
-        events = newEvents;
-      }
+      onPageChangedFromUserArgument!(currentFirstDate, currentFirstDate.add(Duration(days: 41)));
     }
     notifyListeners();
   }
