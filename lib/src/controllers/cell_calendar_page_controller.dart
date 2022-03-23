@@ -2,12 +2,11 @@ import 'package:cell_calendar/src/date_extension.dart';
 import 'package:flutter/material.dart';
 
 class CellCalendarPageController extends PageController {
-  CellCalendarPageController() : super(initialPage: initialPageIndex);
+  CellCalendarPageController({int? initialPage}) : super(initialPage: initialPage ?? initialPageIndex);
 
   void jumpToDate(DateTime date) {
     final currentDate = DateTime.now();
-    final monthDif =
-        (date.year - currentDate.year) * 12 + (date.month - currentDate.month);
+    final monthDif = (date.year - currentDate.year) * 12 + (date.month - currentDate.month);
     super.jumpToPage(initialPageIndex + monthDif);
   }
 
@@ -17,10 +16,8 @@ class CellCalendarPageController extends PageController {
     required Curve curve,
   }) {
     final currentDate = DateTime.now();
-    final monthDif =
-        (date.year - currentDate.year) * 12 + (date.month - currentDate.month);
-    return super.animateToPage(initialPageIndex + monthDif,
-        duration: duration, curve: curve);
+    final monthDif = (date.year - currentDate.year) * 12 + (date.month - currentDate.month);
+    return super.animateToPage(initialPageIndex + monthDif, duration: duration, curve: curve);
   }
 
   /// [jumpToDate] is recommended
@@ -36,7 +33,6 @@ class CellCalendarPageController extends PageController {
     required Duration duration,
     required Curve curve,
   }) {
-    return super.animateToPage(initialPageIndex + page,
-        duration: duration, curve: curve);
+    return super.animateToPage(initialPageIndex + page, duration: duration, curve: curve);
   }
 }
